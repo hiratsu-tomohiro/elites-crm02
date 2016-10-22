@@ -27,8 +27,10 @@
               <td><%= link_to '詳細', customer, class: "btn btn-default btn-xs" %></td>
             </tr>
             <% end %>
-          </tbody>
+            </tbody>
         </table>
+        <!--ページネーションをviewに反映させる-->
+        <%= paginate @customers %>
       </div>
     </div>
   </div>
