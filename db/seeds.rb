@@ -7,6 +7,11 @@
   Company.create(name: "株式会社NOWALL", url: "http://nowall.co.jp/", address: "東京都新宿区西新宿6")
   Company.create(name: "株式会社ZZZ運輸", url: "http://www.zzz_sample.co.jp/", address: "東京都新宿区北新宿8")
 
+  Post.create(position_name: "社長")
+  Post.create(position_name: "部長")
+  Post.create(position_name: "課長")
+  Post.create(position_name: "平社員")
+
 100.times do |index|
   Faker::Config.locale = :ja
   family_name = Faker::Name.last_name
@@ -19,8 +24,10 @@
     family_name: family_name,
     given_name: given_name,
     email: email,
-    #新しく追加されたカラムを記述
-    company_id: rand(1..3)
+    #新しく追加されたcompany_id(1..3)をランダムに取得
+    company_id: rand(1..3),
+    #新しく追加されたpost_id(1..4)をランダムに取得
+    post_id: rand(1..4)
   )
   
 end
