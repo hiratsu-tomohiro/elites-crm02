@@ -11,9 +11,13 @@ class CommentsController < ApplicationController
     def create
         @comment = Comment.new(comment_params)
         if @comment.save
-            redirect_to customer_path(@comment.customer_id)
-        else
-            redirect_to customer_path(@comment.customer_id)
+          redirect_to customer_path(@comment.customer_id)
+         else
+          #@customerにcustomer_idに紐づく@commentをfindで探して代入
+          @customer = Customer.find(@comment.customer_id)
+          #@commentsに@customerに紐づくcommentsを代入
+          @comments = @customer.comments
+          render template: 'customers/show'
         end
     end
     
@@ -28,7 +32,7 @@ class CommentsController < ApplicationController
         # @commentがdestroyされる前に、commentが誰のものかを変数に保存する
         customer_id = @comment.customer_id
         @comment.destroy
-        # さっき保存したcustomer_idをここで使う
+        # さっき保存したcustomer_idを使う
         redirect_to customer_path(customer_id)
     end
     

@@ -14,9 +14,8 @@
     <%= link_to '編集', edit_customer_path(@customer), class: "btn btn-default" %>
     <%= link_to '戻る', customers_path, class: "btn btn-default" %>
     
-    <hr />
-    <!--commentモデルで入力された顧客に対するコメント表示-->
- <h2>対応履歴</h2>
+    
+   <h2>対応履歴</h2>
     <% @comments.each do |comment| %>
       <div class="media">
         <div class="media-body">
@@ -29,13 +28,25 @@
       </div>
     <% end %>
     
+    <hr />
+      <% if @comment.errors.any? %>
+        <div class="alert alert-danger">
+          <p><b><%= @comment.errors.count %>件のエラーがあります</b></p>
+          <ul>
+          <% @comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
     <%= form_for(@comment, url: { controller: :comments, action: :create }) do |f| %>
       <div class="form-group">
         <%= f.label :body , '対応内容' %><br>
         <%= f.text_area :body, class: "form-control" %>
       </div>
-      <%= f.hidden_field :customer_id, value: @customer.id %>
-      <%= f.submit class: "btn btn-default" %>
+        <%= f.hidden_field :customer_id, value: @customer.id %>
+        <%= f.submit class: "btn btn-default" %>
     <% end %>
   </div>
 </div>

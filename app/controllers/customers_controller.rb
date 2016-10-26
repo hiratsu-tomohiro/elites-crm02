@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   #ログイン中のユーザーのみnew,create,edit,update,destroyが使えるように指定
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :destroy, :update]
   
   def index
     @q = Customer.search(params[:q])
@@ -21,11 +22,9 @@ class CustomersController < ApplicationController
   end
 
   def edit
-    @customer = Customer.find(params[:id])
   end
 
   def update
-    @customer = Customer.find(params[:id])
     if @customer.update
       redirect_to @customer
     else
@@ -34,13 +33,11 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @customer = Customer.find(params[:id])
     @comment = Comment.new
     @comments = @customer.comments
   end
 
   def destroy
-    @customer = Customer.find(params[:id])
     @customer.destroy
     redirect_to root_path
   end
@@ -48,6 +45,10 @@ class CustomersController < ApplicationController
   private
   def customer_params
     params.require(:customer).permit(:family_name, :given_name, :email, :company_id, :post_id)
+  end
+  
+  def set_customer
+    @customer = Customer.find(params[:id])
   end
   
 end
