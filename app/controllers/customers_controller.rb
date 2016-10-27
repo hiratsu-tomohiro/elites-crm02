@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
-  #ログイン中のユーザーのみnew,create,edit,update,destroyが使えるように指定
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  #ログイン中のユーザーのみ全アクションが使えるように指定
+  before_action :authenticate_user!
   before_action :set_customer, only: [:show, :edit, :destroy, :update]
   
   def index

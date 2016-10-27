@@ -39,6 +39,11 @@
           </ul>
         </div>
       <% end %>
+      
+      <!--ログインしてるか判定-->
+      <% user_signed_in? %>
+      <!--ログイン中のuserプロフィール画像を表示-->
+      <%= image_tag current_user.image_url, :width => "40", :height => "40", :alt => "プロフィール画像" %>
 
     <%= form_for(@comment, url: { controller: :comments, action: :create }) do |f| %>
       <div class="form-group">
