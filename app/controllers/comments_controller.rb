@@ -13,9 +13,8 @@ class CommentsController < ApplicationController
         if @comment.save
           redirect_to customer_path(@comment.customer_id)
          else
-          #@customerにcustomer_idに紐づく@commentをfindで探して代入
+          #@customerと@commentsにデータを代入し、renderで別コントローラのビューに飛ばす
           @customer = Customer.find(@comment.customer_id)
-          #@commentsに@customerに紐づくcommentsを代入
           @comments = @customer.comments
           render template: 'customers/show'
         end
