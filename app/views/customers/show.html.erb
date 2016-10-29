@@ -17,6 +17,8 @@
     
    <h2>対応履歴</h2>
     <% @comments.each do |comment| %>
+    <!--投稿者のuser画像を左寄せで表示-->
+    <%= image_tag comment.user.image_url, :width => "40", :height => "40", :alt => "プロフィール画像", :style => "float: left;" %>
       <div class="media">
         <div class="media-body">
           <%= simple_format(comment.body) %>
@@ -51,6 +53,7 @@
         <%= f.text_area :body, class: "form-control" %>
       </div>
         <%= f.hidden_field :customer_id, value: @customer.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
         <%= f.submit class: "btn btn-default" %>
     <% end %>
   </div>
